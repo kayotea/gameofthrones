@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Game Of Thrones: About The Houses</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">            
+
+            function addDetails(house){
+                var hname = "<h3>House: "+house.name+"</h3>";
+                var hwords = "<h4>Words: "+house.words+"</h4>";
+                var htitles = "<h4>Titles: ";
+                for (var i = 0; i < house.titles.length-1; i++){
+                    htitles += house.titles[i] + ", ";
+                }
+                htitles += house.titles[house.titles.length-1]+"</h4>";
+                console.log(htitles);
+                $('#details').append("<div id='info'>"+hname+hwords+htitles+"</div>");
+            }
+            function removeDetails(){
+                $('#details').html('');
+            }
+            function buildHouse(name, words, titles){
+                this.name = name;
+                this.words = words;
+                this.titles = titles;
+
+                console.log(this.name);
+                console.log(this.words);
+                console.log(this.titles);
+
+                return this;
+            }
+            $(document).ready(function(){
+
+                $(document.body).on('click', 'img', function(){
+                    var hname = $(this).attr('id');
+                    var starkurl = "https://www.anapioficeandfire.com/api/houses/362";
+                    var targurl = "https://www.anapioficeandfire.com/api/houses/378";
+                    var lannurl = "https://www.anapioficeandfire.com/api/houses/229";
+                    var barurl = "https://www.anapioficeandfire.com/api/houses/17";
+
+                    if(hname == "Stark"){
+                        $.get(starkurl, function(res){
+                            var hname = res.name;
+                            var hwords = res.words;
+                            var htitles = res.titles;
+                            
+                            var house = buildHouse(hname, hwords, htitles);
+                            if($('#details').children().length > 0){
+                                removeDetails();
+                                addDetails(house); 
+                            }else{
+                                addDetails(house);                              
+                            }
+                        });
+                    } else if (hname == "Targaryen"){
+                        $.get(targurl, function(res){
+                            var hname = res.name;
+                            var hwords = res.words;
+                            var htitles = res.titles;
+                            
+                            var house = buildHouse(hname, hwords, htitles);
+                            if($('#details').children().length > 0){
+                                removeDetails();
+                                addDetails(house); 
+                            }else{
+                                addDetails(house);                              
+                            }
+                        });
+                    } else if (hname == "Lannister"){
+                        $.get(lannurl, function(res){
+                            var hname = res.name;
+                            var hwords = res.words;
+                            var htitles = res.titles;
+                            
+                            var house = buildHouse(hname, hwords, htitles);
+                            if($('#details').children().length > 0){
+                                removeDetails();
+                                addDetails(house); 
+                            }else{
+                                addDetails(house);                              
+                            }
+                        });
+                    } else if (hname == "Baratheon"){
+                        $.get(barurl, function(res){
+                            var hname = res.name;
+                            var hwords = res.words;
+                            var htitles = res.titles;
+                            
+                            var house = buildHouse(hname, hwords, htitles);
+                            if($('#details').children().length > 0){
+                                removeDetails();
+                                addDetails(house); 
+                            }else{
+                                addDetails(house);                              
+                            }
+                        });
+                    }
+                });
+                // var url = "http://www.anapioficeandfire.com/api";
+                // //var urlarray = [];
+                // var houseurl = "";
+                // for (var i = 360; i <= 370; i++){
+                //     houseurl = "https://www.anapioficeandfire.com/api/houses/"+i;
+                //     console.log(houseurl);
+
+                //     $.get(houseurl, function(res){
+                //         console.log(res.name);
+                //     });
+
+                
+                //console.log(urlarray);
+                // for(var i = 1; i <-10; i++){
+                //     console.log(urlarray[1]);
+                
+                
+                // });
+
+                // for (var i = 0; i < 10; i++){
+                //     console.log("https://anapioficeandfire.com/api/houses/"+i);
+                // }
+
+                });
+        </script>
+    </head>
+        <body>
+            <div id="wrapper">
+                <div id="householder">
+                    <img src="banners/stark.jpg" alt="stark banner" id="Stark"/>
+                    <img src="banners/targaryen.jpg" alt="targaryen banner" id="Targaryen"/>
+                    <img src="banners/lannister.jpg" alt="lannister banner" id="Lannister"/>
+                    <img src="banners/baratheon.png" alt="baratheon banner" id="Baratheon" />
+                </div>
+                <div id="details">
+                </div>
+            </div>
+        <style>
+            #wrapper{
+                background: lightslategray;
+                width: 1012px;
+                height: 500px;
+                border-radius: 10px;
+                margin: 0 auto;
+                padding: 5px;
+            }
+            #details{
+                width: 500px;
+                height: 200px;
+                margin: 0 auto;
+            }
+            #info{
+                background: lightsteelblue;
+                width: 500px;
+                height: 300px;
+                border: 5px solid white;
+                border-radius: 10px;
+                padding: 10px;
+            }
+            img {
+                width: 250px;
+                height: 150px;
+                border-radius: 10px;
+            }
+            .center{
+                text-align: center;
+            }
+            h3{
+                text-decoration: bold;
+            }
+        </style>
+    </body>
+</html>
